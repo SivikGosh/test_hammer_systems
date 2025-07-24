@@ -1,0 +1,59 @@
+/* base */
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body div {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* header */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 30px;
+    background-color: #1a73e8;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+header a {
+    color: white;
+    font-style: italic;
+}
+
+/* page */
+
+div.content {
+    margin-top: 50px;
+}
+
+div.content h2,
+div.content h3 {
+    text-align: end;
+    font-style: italic;
+    color: #6d6d6d;
+}
+
+/* footer */
+
+footer {
+    text-align: center;
+    background-color: rgb(245, 245, 245);
+    border: 1px solid #ddd;
+}
+
+footer p {
+    margin: 5px;
+}
