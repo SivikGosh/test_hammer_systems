@@ -2,12 +2,12 @@
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
-# [tool.setuptools.packages.find]
-# include = ["bot"]
+[tool.setuptools.packages.find]
+include = ["project"]
 
 [project]
 name = "hammer_systems"
-version = "0.1.0"
+version = "0.1.1"
 description = "Тестоввое задание для компании Hammer Systems."
 requires-python = ">=3.13"
 dependencies = [
@@ -18,10 +18,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["isort", "flake8", "pre-commit", "pipdeptree"]
+dev = ["ruff", "pre-commit", "pipdeptree"]
 
-[tool.flake8]
-exclude = ["*env*/", "__pycache__"]
+[tool.ruff.lint]
+select = ["E", "F", "DJ", "I", "B"]
+exclude = ["venv", ".venv", "__pycache__", "**/migrations/**"]
 
-[tool.isort]
-skip_glob = ["*env*/", "__pycache__"]
+[tool.ruff.lint.pycodestyle]
+max-line-length = 79
