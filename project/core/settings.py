@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app',
 ]
 
 MIDDLEWARE = [
@@ -77,6 +78,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': f'{validation}.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = 'app.User'
 
 LANGUAGE_CODE = 'ru-ru'
 
