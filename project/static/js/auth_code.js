@@ -1,5 +1,5 @@
 import { AppConfig } from "./config.js";
-import { postData, prePostValidation, resendCodeCount } from "./utils.js";
+import { postData, prePostValidation, resendCodeCount, sleep } from "./utils.js";
 
 
 async function getAuthCode() {
@@ -9,6 +9,10 @@ async function getAuthCode() {
     prePostValidation(payload.phone_number, AppConfig.phoneRegex)
 
     try {
+
+        document.getElementById("wait-code-message").style.display = "block";
+        await sleep(2000);
+        document.getElementById("wait-code-message").style.display = "none";
 
         const data = await postData(`${AppConfig.apiUrl}/api/auth_code/`, payload);
 

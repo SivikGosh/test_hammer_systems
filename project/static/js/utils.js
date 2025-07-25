@@ -53,3 +53,8 @@ export function resendCodeCount(seconds) {
         }
     }, 1000);
 }
+
+
+export function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
