@@ -3,8 +3,10 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
+from django.core.validators import MaxLengthValidator, MinLengthValidator
 from django.db import models
 
+from .utils import generate_invite_code
 from .validators import phone_validator
 
 
@@ -61,3 +63,32 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.phone_number
+
+
+class InviteCode(models.Model):
+    user = models.OneToOneField(
+        to=User,
+        on_delete=models.CASCADE,
+        related_name='invite_code'
+    )
+    code = models.CharField(
+        verbose_name='Код',
+        unique=True,
+        blank=True,
+        validators=(
+            MinLengthValidator(6),
+            MaxLengthValidator(6)
+        )
+    )
+
+    class Meta:
+        verbose_name = "Invite-код"
+        verbose_name_plural = "Invite-коды"
+
+    def __str__(self):
+        return f'{self.user.phone_number} - {self.code}'
+
+    def save(self, *args, **kwargs):
+        if not self.code:
+            self.code = generate_invite_code()
+        super().save(*args, **kwargs)
