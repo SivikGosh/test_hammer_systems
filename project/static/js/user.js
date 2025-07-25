@@ -39,6 +39,11 @@ async function showUserInfo() {
         userLastName.appendChild(lastNameeditBtn);
         ul.appendChild(userLastName);
 
+        const inviteCode = document.createElement('li');
+        inviteCode.textContent = `Персональный invite-код: ${data.invite_code}`;
+        ul.appendChild(inviteCode);
+
+
     } catch (error) {
         console.error('Ошибка запроса:', error);
     }
