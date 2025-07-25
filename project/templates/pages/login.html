@@ -5,7 +5,30 @@
 {% block title %} Авторизация {% endblock title %}
 
 {% block content %}
+
+    <script type="module" src="{% static 'js/auth_code.js' %}"></script>
+    <script type="module" src="{% static 'js/authorization.js' %}"></script>
+
     <h2>Привет, незнакомец!</h2>
     <h3>Для того, чтобы пользоваться ресурсом, тебе нужна авторизация.</h3>
     <h3>Которая будет добавлена позже.</h3>
+
+    <p class="login-form" id="countdown-block" style="display: none; text-align: center;">
+        повторно отправить код можно через <span style="color: red;" id="countdown">300</span> секунд
+    </p>
+
+    <p class="login-form" id="auth-code-deprecated" style="display: none; text-align: center;">
+        Код доступа устарел. Запроси новый.
+    </p>
+
+    <div class="login-form" id="phone-number-form">
+        <input type="text" id="phoneInput" placeholder="Формат: +1234567890">
+        <button id="get-code-btn">Получить код доступа</button>
+    </div>
+
+    <div class="login-form" id="auth-code-form" style="display: none;">
+        <input type="text" id="codeInput" placeholder="Пример: 1234">
+        <button id="authorize-btn">Авторизоваться</button>
+    </div>
+
 {% endblock content %}
