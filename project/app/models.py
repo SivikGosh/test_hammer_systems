@@ -3,6 +3,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import MaxLengthValidator, MinLengthValidator
 from django.db import models
 
@@ -63,6 +64,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.phone_number
+    
+    @property
+    def has_activated_code(self):
+        try:
+            return bool(self.activated_code)
+        except ObjectDoesNotExist:
+            return False
 
 
 class InviteCode(models.Model):
@@ -92,3 +100,25 @@ class InviteCode(models.Model):
         if not self.code:
             self.code = generate_invite_code()
         super().save(*args, **kwargs)
+
+
+class ActivatedCode(models.Model):
+    user = models.OneToOneField(
+        to=User,
+        on_delete=models.CASCADE,
+        related_name='activated_code'
+    )
+    code = models.CharField(
+        verbose_name='Код',
+        blank=True,
+        validators=(
+            MinLengthValidator(6),
+            MaxLengthValidator(6)
+        )
+    )
+    class Meta:
+        verbose_name = 'Активированный код'
+        verbose_name_plural = 'Активированные коды'
+
+    def __str__(self):
+        return self.code or self.user.phone_number
