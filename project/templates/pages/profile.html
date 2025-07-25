@@ -1,3 +1,22 @@
 {% extends 'base.html' %}
+
+{% load static %}
+
 {% block title %} Пользователь {{ user_phone_number }}{% endblock title %}
-{% block content %} <h2>Привет, {{ user_phone_number }}!</h2> {% endblock content %}
+
+{% block content %}
+
+    <script>
+        window.currentUser = "{{ request.user.phone_number|escapejs }}";
+    </script>
+
+    <script type="module" src="{% static 'js/user.js' %}"></script>
+
+    <h2>Привет, {{ user_phone_number }}!</h2>
+
+    <div class="user-info" id="user-info-form">
+        <img src="{% static 'img/avatar.jpg' %}" alt="avatar" width="250">
+        <ul></ul>
+    </div>
+
+{% endblock content %}

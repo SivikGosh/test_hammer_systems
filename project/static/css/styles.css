@@ -41,7 +41,6 @@ div.content {
 div.content h2,
 div.content h3 {
     text-align: end;
-    font-style: italic;
     color: #6d6d6d;
 }
 
@@ -90,6 +89,37 @@ div.content h3 {
     transition: 300ms;
 }
 
+.user-info {
+    width: 600px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: rgb(245, 245, 245);
+    margin: 50px 0;
+    border-radius: 10px;
+    display: block;
+}
+
+.user-info img {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.user-info ul {
+    float: right;
+    list-style: none;
+    width: 328px;
+    padding: 0;
+    margin: 20px 0 0;
+}
+
+.user-info ul li {
+    padding: 5px;
+    border: 1px solid #ddd;
+    background-color: white;
+    margin: 0 0 20px;
+    border-radius: 5px;
+    display: block;
+}
 
 /* footer */
 

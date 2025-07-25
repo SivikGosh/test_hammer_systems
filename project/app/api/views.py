@@ -2,6 +2,7 @@ from django.contrib.auth import login
 from django.core.handlers.wsgi import WSGIRequest
 from django.urls import reverse
 from rest_framework.decorators import api_view
+from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.response import Response
 from rest_framework.status import (
     HTTP_200_OK,
@@ -13,7 +14,18 @@ from app.models import User
 from app.redis import redis
 from app.utils import generate_auth_code
 
-from .serializers import AuthCodeSerializer, PhoneNumberSerializer
+from .serializers import (
+    AuthCodeSerializer,
+    PhoneNumberSerializer,
+    UserSerializer,
+)
+
+
+class UserRetrieveUpdateView(RetrieveUpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    lookup_field = 'phone_number'
+
 
 
 @api_view(('post',))
