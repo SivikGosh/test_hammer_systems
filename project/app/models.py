@@ -86,7 +86,7 @@ class InviteCode(models.Model):
         verbose_name_plural = "Invite-коды"
 
     def __str__(self):
-        return f'{self.user.phone_number} - {self.code}'
+        return self.code
 
     def save(self, *args, **kwargs):
         if not self.code:

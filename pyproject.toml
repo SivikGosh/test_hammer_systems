@@ -7,7 +7,7 @@ include = ["project"]
 
 [project]
 name = "hammer_systems"
-version = "0.6.0"
+version = "0.6.1"
 description = "Тестоввое задание для компании Hammer Systems."
 requires-python = ">=3.13"
 dependencies = [
