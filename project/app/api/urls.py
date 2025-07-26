@@ -1,4 +1,5 @@
 from django.urls import path
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView
 
 from .views import (
     InvitersAPIView,
@@ -19,5 +20,11 @@ urlpatterns = [
         'users/<str:phone_number>/',
         UserRetrieveUpdateView.as_view(),
         name='user'
+    ),
+    path('schema/', SpectacularAPIView.as_view(), name='schema'),
+    path(
+        'redoc/',
+        SpectacularRedocView.as_view(url_name='api:schema'),
+        name='redoc'
     ),
 ]

@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "15911e8e-6e0d-44ee-9844-47fce3357610",
+		"name": "Hammer Systems API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44419163"
+	},
+	"item": [
+		{
+			"name": "1. Авторизация",
+			"item": [
+				{
+					"name": "1. Запрос кода авторизации",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone_number\": \"+1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth_code/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth_code",
+								""
+							],
+							"query": [
+								{
+									"key": "phone_number",
+									"value": "+1234567890",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Авторизация",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"auth_code\": \"1234\",  // подставить значение 'code' из ответа в предыдущем запросе\r\n    \"phone_number\": \"+1234567890\"  // номер телефона из предыдущего запроса\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/authorization/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"authorization",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Авторизация пользователя. Автоматически создаёт пользователя, если его нет в базе."
+		},
+		{
+			"name": "2. После авторизации",
+			"item": [
+				{
+					"name": "1. Получение пользователя",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/users/+1234567890/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"+1234567890",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Активация кода",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "DKwSpmR1aTOfvrok4N3KeIcjIcerhRkW",
+								"description": "Взять из Cookies значение csrftoken.",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"activate_code\": \"1q2w3e\" // значение 'invite_code' из ответа на предыдущий запрос. ВАЖНО: нельзя активировать 'invite_code' текущего пользователя, поэтому нужно создать ещё одного для этого запроса. ТАКЖЕ: для выполнения запроса в Headers передается csrf токен, пример и описание указаны в соответствующем разделе.\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/activate_code/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"activate_code",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Получение инвайтеров",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/inviters/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"inviters",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Авторизация обязательна. В запросах используется csrf токен и активная сессия авторизованного пользователя."
+		}
+	]
+}

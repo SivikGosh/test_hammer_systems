@@ -2,9 +2,9 @@ from django.contrib.auth import login
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.handlers.wsgi import WSGIRequest
 from django.urls import reverse
-from rest_framework.decorators import api_view, permission_classes
+from drf_spectacular.utils import extend_schema
+from rest_framework.decorators import api_view
 from rest_framework.generics import RetrieveUpdateAPIView
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import (
     HTTP_200_OK,
@@ -32,8 +32,39 @@ class UserRetrieveUpdateView(RetrieveUpdateAPIView):
     serializer_class = UserSerializer
     lookup_field = 'phone_number'
 
+    @extend_schema(
+        'Получение данных пользователя',
+        description='Получение информации о пользователе по номеру телефона.',
+        methods=('get',)
+    )
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    @extend_schema(
+        'Обновление данных пользователя',
+        description='Обновление информации о пользователе по номеру телефона.',
+        methods=('put',)
+    )
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    @extend_schema(
+        'Редактирование данных пользователя',
+        description='Обновление информации о пользователе по номеру телефона.',
+        methods=('patch',)
+    )
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
 
 class InvitersAPIView(APIView):
+
+    @extend_schema(
+        'Получение инвайтеров',
+        description='Получение списка пользователей, '
+                    'активировавших invite-код текущего пользовател.',
+        methods=('get',)
+    )
     def get(self, request):
         user = User.objects.get(phone_number=request.user.phone_number)
         inviters = User.objects.filter(
@@ -43,6 +74,11 @@ class InvitersAPIView(APIView):
         return Response(data)
 
 
+@extend_schema(
+    'Запрос кода авторизации',
+    description='Запрос кода по номеру телефона.',
+    methods=('post',)
+)
 @api_view(('post',))
 def get_auth_code(request: WSGIRequest) -> Response:
     serializer = PhoneNumberSerializer(data=request.data)
@@ -55,6 +91,11 @@ def get_auth_code(request: WSGIRequest) -> Response:
     return Response(serializer.errors, HTTP_400_BAD_REQUEST)
 
 
+@extend_schema(
+    'Авторизация',
+    description='Авторизация по коду.',
+    methods=('post',)
+)
 @api_view(('post',))
 def login_by_code(request: WSGIRequest) -> Response:
     serializer = AuthCodeSerializer(data=request.data)
@@ -73,8 +114,12 @@ def login_by_code(request: WSGIRequest) -> Response:
 
 
 
+@extend_schema(
+    'Активация кода',
+    description='Активация invite-кода другого пользователя.',
+    methods=('post',)
+)
 @api_view(('post',))
-@permission_classes((AllowAny,))
 def activate_code(request: WSGIRequest) -> Response:
     serializer = ActivateCodeSerializer(data=request.data)
     if serializer.is_valid():
