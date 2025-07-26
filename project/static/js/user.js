@@ -43,6 +43,14 @@ async function showUserInfo() {
         inviteCode.textContent = `Персональный invite-код: ${data.invite_code}`;
         ul.appendChild(inviteCode);
 
+        if (data.has_activated_code) {
+            const inpuActivateCode = document.createElement('li');
+            inpuActivateCode.textContent = `Активированный код: ${data.activated_code}`;
+            inpuActivateCode.style.color = 'green';
+            ul.appendChild(inpuActivateCode);
+        } else {
+            document.getElementById("activate-code-form").style.display = "block";
+        }
 
     } catch (error) {
         console.error('Ошибка запроса:', error);
