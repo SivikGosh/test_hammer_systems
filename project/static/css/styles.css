@@ -106,7 +106,6 @@ div.content h3 {
 .user-info img {
     border: 1px solid #ddd;
     border-radius: 5px;
-    margin-bottom: 50px;
 }
 
 .user-info ul {
@@ -118,7 +117,7 @@ div.content h3 {
 }
 
 .user-info ul li {
-    padding: 5px 6px 12px;
+    padding: 5px;
     border: 1px solid #ddd;
     background-color: white;
     margin: 0 0 15px;
