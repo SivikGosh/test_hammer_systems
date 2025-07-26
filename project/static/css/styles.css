@@ -38,6 +38,12 @@ div.content {
     margin-top: 50px;
 }
 
+.page {
+  display: flex;
+  flex-direction: column;
+}
+
+
 div.content h2,
 div.content h3 {
     text-align: end;
@@ -94,7 +100,17 @@ div.content h3 {
 }
 
 .user-info {
-    width: 800px;
+    width: 1158px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: rgb(245, 245, 245);
+    margin: 50px auto;
+    border-radius: 10px;
+    display: block;
+}
+
+.inviters-info {
+    width: 300px;
     padding: 20px;
     border: 1px solid #ddd;
     background-color: rgb(245, 245, 245);
@@ -106,9 +122,11 @@ div.content h3 {
 .user-info img {
     border: 1px solid #ddd;
     border-radius: 5px;
+    float: left;
 }
 
-.user-info ul {
+.user-info ul,
+.inviters-info ul {
     float: right;
     list-style: none;
     width: 510px;
@@ -116,13 +134,29 @@ div.content h3 {
     margin: 20px 0 0;
 }
 
-.user-info ul li {
+.user-info ul li,
+.inviters-info ul li {
     padding: 5px;
     border: 1px solid #ddd;
     background-color: white;
     margin: 0 0 15px;
     border-radius: 5px;
     display: block;
+}
+
+#inviters-list {
+    display: flex;
+    flex-direction: column;
+    float: right;
+    width: 336px;
+    margin: 0;
+}
+
+#inviters-list li {
+    text-align: center;
+    background: none;
+    border: none;
+    color: #1a73e8;
 }
 
 /* footer */

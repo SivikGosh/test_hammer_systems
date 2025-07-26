@@ -13,6 +13,7 @@ from rest_framework.status import (
     HTTP_404_NOT_FOUND,
     HTTP_418_IM_A_TEAPOT,
 )
+from rest_framework.views import APIView
 
 from app.models import ActivatedCode, InviteCode, User
 from app.redis import redis
@@ -30,6 +31,16 @@ class UserRetrieveUpdateView(RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'phone_number'
+
+
+class InvitersAPIView(APIView):
+    def get(self, request):
+        user = User.objects.get(phone_number=request.user.phone_number)
+        inviters = User.objects.filter(
+            activated_code__code=user.invite_code.code
+        )
+        data = {'inviters': [inviter.phone_number for inviter in inviters]}
+        return Response(data)
 
 
 @api_view(('post',))

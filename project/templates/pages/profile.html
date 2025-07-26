@@ -12,17 +12,24 @@
 
     <script type="module" src="{% static 'js/user.js' %}"></script>
     <script type="module" src="{% static 'js/activate_code.js' %}"></script>
+    <script type="module" src="{% static 'js/inviters.js' %}"></script>
 
-    <h2>Привет, {{ user_phone_number }}!</h2>
+    <div class="page">
 
-    <div class="user-info" id="user-info-form">
-        <img src="{% static 'img/avatar.jpg' %}" alt="avatar" width="270" height="290">
-        <ul style="display: flex; flex-direction: column;">
-            <li id="activate-code-form" style="order: 999; display: none; background: none; border: none;">
-                <input type="text" id="activateCodeInput" placeholder="Введите код">
-                <button id="code-activate-btn">Активировать</button>
-            </li>
-        </ul>
+        <h2>Привет, {{ user_phone_number }}!</h2>
+
+        <div class="user-info" id="user-info-form">
+            <img src="{% static 'img/avatar.jpg' %}" alt="avatar" width="270" height="290">
+            <ul style="display: flex; flex-direction: column; float: left; margin: 0 20px;">
+                <li id="activate-code-form" style="order: 999; display: none; background: none; border: none;">
+                    <input type="text" id="activateCodeInput" placeholder="Введите код">
+                    <button id="code-activate-btn">Активировать</button>
+                </li>
+            </ul>
+            <p style="text-align: center;">Пользователи, активировавшие твой код:</p>
+            <ul id="inviters-list"></ul>
+        </div>
+
     </div>
 
 {% endblock content %}
