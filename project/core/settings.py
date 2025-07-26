@@ -1,5 +1,6 @@
-from os import getenv
+from os import getenv, path
 from pathlib import Path
+from urllib.parse import urlparse
 
 from dotenv import load_dotenv
 
@@ -11,7 +12,10 @@ SECRET_KEY = getenv('SECRET_KEY', default='$3cR3t-K3y')
 
 DEBUG = getenv('DEBUG', default=True)
 
-ALLOWED_HOSTS = ['*']
+site_url = getenv('SITE_URL', default='http://localhost')
+hostname = urlparse(site_url).hostname or 'localhost'
+
+ALLOWED_HOSTS = (hostname,)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -47,6 +51,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'app.context_processors.get_site_url',
             ],
         },
     },
@@ -63,6 +68,11 @@ DATABASES = {
         'HOST': getenv('DB_HOST', default='localhost'),
         'PORT': getenv('DB_PORT', default=5432)
     }
+}
+
+REDIS = {
+    'HOST': getenv('REDIS_HOST', default='localhost'),
+    'PORT': getenv('REDIS_PORT', default=6379),
 }
 
 validation = 'django.contrib.auth.password_validation'
@@ -92,8 +102,10 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
-
-STATICFILES_DIRS = [BASE_DIR / 'static']
+if DEBUG:
+    STATICFILES_DIRS = [BASE_DIR / 'static']
+else:
+    STATIC_ROOT = path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

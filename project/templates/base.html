@@ -7,6 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="csrf-token" content="{{ csrf_token }}">
+        <meta name="site-url" content="{{ site_url }}">
         <link rel="stylesheet" href="{% static 'css/styles.css' %}">
         <title>{% block title %} <!-- Заголовок --> {% endblock title %}</title>
     </head>

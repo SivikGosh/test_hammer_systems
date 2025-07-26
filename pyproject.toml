@@ -7,11 +7,12 @@ include = ["project"]
 
 [project]
 name = "hammer_systems"
-version = "1.0.1"
+version = "1.1.0"
 description = "Тестоввое задание для компании Hammer Systems."
 requires-python = ">=3.13"
 dependencies = [
     "drf-spectacular>=0.28.0",
+    'gunicorn==23.0.0',
     "python-dotenv>=1.1.1",
     "psycopg==3.2.9",
     "psycopg-binary==3.2.9",
