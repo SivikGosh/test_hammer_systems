@@ -53,7 +53,8 @@ div.content h3 {
     border-radius: 10px;
 }
 
-.login-form input {
+.login-form input,
+#user-info-form ul input {
     display: block;
     margin: 0 auto 15px;
     height: 30px;
@@ -62,11 +63,13 @@ div.content h3 {
     text-align: center;
 }
 
-.login-form input::placeholder {
+.login-form input::placeholder,
+#user-info-form ul input::placeholder {
     text-align: center;
 }
 
-.login-form button {
+.login-form button,
+#user-info-form ul button {
     display: block;
     margin: 0 auto;
     background: #1a73e8;
@@ -78,7 +81,8 @@ div.content h3 {
     border-radius: 5px;
 }
 
-.login-form button:hover {
+.login-form button:hover,
+#user-info-form ul button:hover {
     display: block;
     margin: 0 auto;
     background: #5f9ff3;
@@ -90,7 +94,7 @@ div.content h3 {
 }
 
 .user-info {
-    width: 600px;
+    width: 800px;
     padding: 20px;
     border: 1px solid #ddd;
     background-color: rgb(245, 245, 245);
@@ -102,18 +106,19 @@ div.content h3 {
 .user-info img {
     border: 1px solid #ddd;
     border-radius: 5px;
+    margin-bottom: 50px;
 }
 
 .user-info ul {
     float: right;
     list-style: none;
-    width: 328px;
+    width: 510px;
     padding: 0;
     margin: 20px 0 0;
 }
 
 .user-info ul li {
-    padding: 5px;
+    padding: 5px 6px 12px;
     border: 1px solid #ddd;
     background-color: white;
     margin: 0 0 15px;
